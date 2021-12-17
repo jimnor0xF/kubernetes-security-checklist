@@ -12,16 +12,16 @@ There are many ways to make your cluster secure, but we have chosen only one, th
 - **Authorization**
   - [ ] For each cluster, a role-based access model should be developed.
   - [ ] [Role-Based Access Control (RBAC)](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) should be configured for the Kubernetes cluster. Rights need to be assigned within the project namespace based on least privilege and separation of duties ([RBAC-tool](https://github.com/alcideio/rbac-tool)).
-  - [ ] All services should have a unique service account with configured RBAC rights.
+  - [x] All services should have a unique service account with configured RBAC rights.
   - [ ] Developers should not have access to a production environment without the approval of the security team.
   - [ ] It is forbidden to use [user impersonation](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation) (the ability to perform actions under other accounts).
   - [ ] It is forbidden to use anonymous authentication, except for ```/healthz```, ```/readyz```, ```/livez```. Exceptions should be agreed upon with the security team.
   - [ ] Cluster administrators and maintainers should interact with the cluster API and infrastructure services through privileged access management systems  ([Teleport](https://goteleport.com/docs/kubernetes-access/introduction/), [Boundary](https://www.hashicorp.com/blog/gating-access-to-kubernetes-with-hashicorp-boundary)).
-  - [ ] All information systems should be divided into separate namespaces. It is recommended to avoid the situation when the same maintainer team is responsible for different namespaces.
+  - [x] All information systems should be divided into separate namespaces. It is recommended to avoid the situation when the same maintainer team is responsible for different namespaces.
   - [ ] RBAC Rights should be audited regularly ([KubiScan](https://github.com/cyberark/KubiScan), [Krane](https://github.com/appvia/krane))
 - **Secure work with secrets**
   - [ ] Secrets should be stored in third-party storage ([HashiCorp Vault](https://www.vaultproject.io/docs/platform/k8s), [Conjur](https://www.conjur.org/blog/securing-secrets-in-kubernetes/)), or in etcd in encrypted form.
-  - [ ] Secrets should be added to the container using the volumeMount mechanism or the secretKeyRef mechanism. For hiding secrets in source codes, for example, the [sealed-secret](https://github.com/bitnami-labs/sealed-secrets) tool can be used.
+  - [x] Secrets should be added to the container using the volumeMount mechanism or the secretKeyRef mechanism. For hiding secrets in source codes, for example, the [sealed-secret](https://github.com/bitnami-labs/sealed-secrets) tool can be used.
 - **Cluster Configuration Security**
   - [ ] Use TLS encryption between all cluster components.
   - [ ] Use Policy engine ([OPA](https://www.openpolicyagent.org/docs/v0.12.2/kubernetes-admission-control/), [Kyverno](https://kyverno.io/), [jsPolicy](https://www.jspolicy.com), [Kubewarden](https://www.kubewarden.io)).
@@ -37,19 +37,19 @@ There are many ways to make your cluster secure, but we have chosen only one, th
   - [ ] All registered security events (at the cluster level and  application level both) should be sent to the centralized audit logging system (SIEM).
   - [ ] The audit logging system should be located outside the Kubernetes cluster.
   - [ ] Build observability and visibility processes in order to understand what is happening in infrastructure and services ([Luntry](https://luntry.com/), [WaveScope](https://github.com/weaveworks/scope))
-  - [ ] Use third-party security monitoring tool on all cluster nodes ([Falco](https://falco.org/), [Sysdig](https://sysdig.com/), [Aqua Enterpise](https://www.aquasec.com/), [NeuVector](https://neuvector.com/), [Prisma Cloud Compute](https://www.paloaltonetworks.com/prisma/cloud)).
+  - [x] Use third-party security monitoring tool on all cluster nodes ([Falco](https://falco.org/), [Sysdig](https://sysdig.com/), [Aqua Enterpise](https://www.aquasec.com/), [NeuVector](https://neuvector.com/), [Prisma Cloud Compute](https://www.paloaltonetworks.com/prisma/cloud)).
 - **Secure OS configuration**
-  - [ ] Host administrators and maintainers should interact with cluster nodes through privileged access management systems (or bastion hosts).
-  - [ ] It is recommended to configure the OS and software following the baseline and standards ([CIS](https://www.cisecurity.org/cis-benchmarks/), [NIST](https://ncp.nist.gov/repository)).
-  - [ ] It is recommended to regularly scan packages and configuration for vulnerabilities([OpenSCAP profiles](https://static.open-scap.org/), [Lynis](https://cisofy.com/lynis/)).
+  - [x] Host administrators and maintainers should interact with cluster nodes through privileged access management systems (or bastion hosts).
+  - [x] It is recommended to configure the OS and software following the baseline and standards ([CIS](https://www.cisecurity.org/cis-benchmarks/), [NIST](https://ncp.nist.gov/repository)).
+  - [x] It is recommended to regularly scan packages and configuration for vulnerabilities([OpenSCAP profiles](https://static.open-scap.org/), [Lynis](https://cisofy.com/lynis/)).
   - [ ] It is recommended to regularly update the OS kernel version ([CVEhound](https://github.com/evdenis/cvehound)).
 - **Network Security**
   - [ ] All namespaces should have NetworkPolicy. Interactions between namespaces should be limited to NetworkPolicy following least privileges principles ([Inspektor Gadget](https://github.com/kinvolk/inspektor-gadget)).
   - [ ] It is recommended to use authentication and authorization between all application microservices ([Istio](https://platform9.com/blog/kubernetes-service-mesh-how-to-set-up-istio/), [Linkerd](https://platform9.com/blog/how-to-set-up-linkerd-as-a-service-mesh-for-platform9-managed-kubernetes/), [Consul](https://www.consul.io/docs/architecture)).
-  - [ ] The interfaces of the cluster components and infrastructure tools should not be published on the Internet.
+  - [x] The interfaces of the cluster components and infrastructure tools should not be published on the Internet.
   - [ ] Infrastructure services, control plane, and data storage should be located in a separate VLAN on isolated nodes.
-  - [ ] External user traffic passing into the cluster should be inspected using WAF.
-  - [ ] It is recommended to separate the cluster nodes interacting with the Internet (DMZ) from the cluster nodes interacting with internal services. Delimitation can be within one cluster, or within two different clusters (DMZ and VLAN).
+  - [x] External user traffic passing into the cluster should be inspected using WAF.
+  - [x] It is recommended to separate the cluster nodes interacting with the Internet (DMZ) from the cluster nodes interacting with internal services. Delimitation can be within one cluster, or within two different clusters (DMZ and VLAN).
 - **Secure configuration of workloads**
   - [ ] Do not run pods under the [root account](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) - UID 0.
   - [ ] [Set](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod) ```runAsUser``` parameter for all applications.
@@ -63,7 +63,7 @@ There are many ways to make your cluster secure, but we have chosen only one, th
     - ```kernel.msg *```,
     - ```kernel.sem```,
     - ```fs.mqueue. *```,
-  - [ ] [Do not](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) use ```hostPath```.
+  - [x] [Do not](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) use ```hostPath```.
   - [ ] [Use](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) CPU / RAM limits. The values should be the minimum for the containerized application to work.
   - [ ] [Capabilities](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) should be set according to the principle of least privileges (drop 'ALL', after which all the necessary capacities for the application to work are enumerated, while it is prohibited to use:
     - ```CAP_FSETID```,
@@ -80,24 +80,24 @@ There are many ways to make your cluster secure, but we have chosen only one, th
   - [ ] The application should have a seccomp, apparmor or selinux profile according to the principles of least privileges ([Udica](https://github.com/containers/udica), [Oci-seccomp-bpf-hook](https://github.com/containers/oci-seccomp-bpf-hook), [Go2seccomp](https://github.com/xfernando/go2seccomp), [Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)).
   - [ ] Workload configuration should be audited regularly ([Kics](https://checkmarx.com/product/opensource/kics-open-source-infrastructure-as-code-project/),  [Kubeaudit](https://github.com/Shopify/kubeaudit), [Kubescape](https://github.com/armosec/kubescape), [Conftest](https://github.com/open-policy-agent/conftest),  [Kubesec](https://github.com/controlplaneio/kubesec), [Checkov](https://github.com/bridgecrewio/checkov))
 - **Secure image development**
-  - [ ] Do not use ```RUN``` construct with ```sudo```.
+  - [x] Do not use ```RUN``` construct with ```sudo```.
   - [ ] ```COPY``` is required instead of ```ADD``` instruction.
   - [ ] Do not use automatic package update via ```apt-get upgrade```, ```yum update```, ```apt-get dist-upgrade```.
-  - [ ] It is necessary to explicitly indicate the versions of the installed packages. The SBOM building tools ([Syft](https://github.com/anchore/syft)) can be used to determine the list of packages.
-  - [ ] Do not store sensitive information (passwords, tokens, certificates) in the Dockerfile.
+  - [x] It is necessary to explicitly indicate the versions of the installed packages. The SBOM building tools ([Syft](https://github.com/anchore/syft)) can be used to determine the list of packages.
+  - [x] Do not store sensitive information (passwords, tokens, certificates) in the Dockerfile.
   - [ ] The composition of the packages in the container image should be minimal enough to work.
-  - [ ] The port range forwarded into the container should be minimal enough to work. 
+  - [x] The port range forwarded into the container should be minimal enough to work. 
   - [ ] It is not recommended to install ```wget```, ```curl```, ```netcat``` inside the production application image and container.
   - [ ] It is recommended to use ```dockerignore``` to prevent putting sensitive information inside the image.
-  - [ ] It is recommended to use a minimum number of layers using a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/).
-  - [ ] It is recommended to use ```WORKDIR``` as an absolute path. It is not recommended to use ```cd``` instead of ```WORKDIR```.
-  - [ ] It is recommended to beware of recursive copying using ```COPY . ..```
+  - [x] It is recommended to use a minimum number of layers using a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/).
+  - [x] It is recommended to use ```WORKDIR``` as an absolute path. It is not recommended to use ```cd``` instead of ```WORKDIR```.
+  - [x] It is recommended to beware of recursive copying using ```COPY . ..```
   - [ ] It is recommended not to use the ```latest``` tag.
   - [ ] When downloading packages from the Internet during the build process, it is recommended to check the integrity of these packages.
-  - [ ] Do not run remote control tools in a container.
+  - [x] Do not run remote control tools in a container.
   - [ ] Based on the results of scanning Docker images, an image signature should be generated, which will be verified before deployment ([Notary, Cosign](https://medium.com/sse-blog/verify-container-image-signatures-in-kubernetes-using-notary-or-cosign-or-both-c25d9e79ec45)).
-  - [ ] Dockerfile should be checked during development by automated scanners ([Kics](https://checkmarx.com/product/opensource/kics-open-source-infrastructure-as-code-project/), [Hadolint](https://github.com/hadolint/hadolint), [Conftest](https://github.com/open-policy-agent/conftest)).
-  - [ ] All images should be checked in the application lifecycle by automated scanners ([Trivy](https://github.com/aquasecurity/trivy), [Clair](https://github.com/quay/clair), [Grype](https://github.com/anchore/grype)). 
+  - [x] Dockerfile should be checked during development by automated scanners ([Kics](https://checkmarx.com/product/opensource/kics-open-source-infrastructure-as-code-project/), [Hadolint](https://github.com/hadolint/hadolint), [Conftest](https://github.com/open-policy-agent/conftest)).
+  - [x] All images should be checked in the application lifecycle by automated scanners ([Trivy](https://github.com/aquasecurity/trivy), [Clair](https://github.com/quay/clair), [Grype](https://github.com/anchore/grype)). 
   - [ ] Build secure CI and CD as same as suply chain process ([SLSA](https://github.com/slsa-framework/slsa))
 
 #
